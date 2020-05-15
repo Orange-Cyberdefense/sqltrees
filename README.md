@@ -1,2 +1,2 @@
 # sqltrees
-Developper-proof prevention of SQL injection (java library)
+A secure, developper-proof, Java library for querying SQL databases.
