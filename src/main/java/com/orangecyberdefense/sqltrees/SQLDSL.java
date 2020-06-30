@@ -5,16 +5,9 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public final class SQLDSL {
-    // Reserved keywords
-    private static String[] keywords = {
-	"select", "from", "where", "having", "group", "by",
-	"and", "or"
-    };
-    static { Arrays.sort(keywords); } // lets us binarySearch the array.
-
-    // private as instantiating it makes no sense
+    // private visibility since instantiating this class makes no sense
     private SQLDSL() { return; }
-    
+
     public static AST num(long n) {
 	return new AST(Long.valueOf(n).toString(), null, 0);
     }
@@ -28,7 +21,7 @@ public final class SQLDSL {
 
     public static AST id(String s) {
 	if (!allowedIdent.matcher(s).matches()
-	    || Arrays.binarySearch(keywords, s.toLowerCase()) >= 0) {
+	    || ReservedWords.isReserved(s)) {
 	    throw new IllegalArgumentException("Invalid ident: " + s);
 	}
 	return new AST(s, null, 0);

@@ -26,8 +26,8 @@ public class SecureCriterionTest extends Search {
     
     AST buildStatement(int y, String[] fields, String[] values) {
         return select(star,
-                      from(id("events")),
-                      where(and(eq(id("year"), num(y)),
+                      from(id("songs")),
+                      where(and(eq(id("yearofsong"), num(y)),
                                 computeCriterion(fields, values))));
     }
     
@@ -43,10 +43,10 @@ public class SecureCriterionTest extends Search {
 
     @Test
     public void testPreSearch() {
-	CompiledStatement s0 = tree.compile();
-	CompiledStatement s1 = preSearch(1936, fields, values);
-	assertEquals(s0.getTpl(), s1.getTpl());
-	assertArrayEquals(s0.getArgs(), s1.getArgs());
+	CompiledStatement cs0 = tree.compile();
+	CompiledStatement cs1 = preSearch(1964, fields, values);
+	assertEquals(cs0.getTpl(), cs1.getTpl());
+	assertArrayEquals(cs0.getArgs(), cs1.getArgs());
     }
 
     @Test

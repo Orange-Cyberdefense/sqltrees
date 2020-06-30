@@ -32,7 +32,8 @@ public final class CompiledStatement {
 	throws SQLException {
 	PreparedStatement stmt = con.prepareStatement(getTpl());
 	for(int i = 0; i < args.size(); i++) {
-	    stmt.setString(i+1, args.get(i)); 
+	    stmt.setString(i+1, // numbering starts at 1
+			   args.get(i));
 	}
 	return stmt;
     }

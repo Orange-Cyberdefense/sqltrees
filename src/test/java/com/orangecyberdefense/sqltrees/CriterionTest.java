@@ -23,7 +23,7 @@ public class CriterionTest extends Search {
                                      String[] values)
 	throws SQLException {
         String crit = computeCriterion(fields, values);
-        String s = "SELECT * FROM events WHERE year = ?" + crit;
+        String s = "SELECT * FROM songs WHERE yearofsong = ?" + crit;
         PreparedStatement ps = con.prepareStatement(s);
         ps.setInt(1, y);
         return ps;
@@ -39,17 +39,17 @@ public class CriterionTest extends Search {
                                      String[] values)
 	throws SQLException {
         String crit = computeCriterion(fields, values);
-        String s = "SELECT * FROM events WHERE year = ?" + crit;
+        String s = "SELECT * FROM songs WHERE yearofsong = ?" + crit;
         return s;
     }
 
     @Test
     public void testPreBuildStatement()
 	throws SQLException {
-	String[] fields = { "surname" };
-	String[] values = { "O'Neill" };
+	String[] fields = { "songtitle" };
+	String[] values = { "I'm a loser" };
 	String s = preBuildStatement(42, fields, values);
-	assertEquals(s, "SELECT * FROM events WHERE year = ? AND surname = 'O'Neill'");
+	assertEquals(s, "SELECT * FROM songs WHERE yearofsong = ? AND songtitle = 'I'm a loser'");
     }
 
 }

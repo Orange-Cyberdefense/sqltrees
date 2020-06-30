@@ -1,5 +1,10 @@
+# editor backup files
+*~
+
 # Compiled class file
 *.class
+# maven products
+target/
 
 # Log file
 *.log
