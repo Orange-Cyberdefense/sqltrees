@@ -11,13 +11,13 @@ public final class CompiledStatement {
     private final ArrayList<String> args = new ArrayList<String>();
 
     public String getTpl() {
-	return tpl.toString();
+       return tpl.toString();
     }
 
     public String[] getArgs() {
-	return args.toArray(new String[0]);
+        return args.toArray(new String[0]);
     }
-    
+
     void addStringParam(String s) {
 	tpl.append("? ");
 	args.add(s);
@@ -28,18 +28,21 @@ public final class CompiledStatement {
 	tpl.append(" ");
     }
 
-    public PreparedStatement getPreparedStatement(Connection con)
-	throws SQLException {
-	PreparedStatement stmt = con.prepareStatement(getTpl());
-	for(int i = 0; i < args.size(); i++) {
-	    stmt.setString(i+1, // numbering starts at 1
-			   args.get(i));
-	}
-	return stmt;
+    PreparedStatement getPreparedStatement(Connection con)
+      throws SQLException {
+        PreparedStatement stmt = con.prepareStatement(tpl.toString());
+        for(int i = 0; i < args.size(); i++) {
+            stmt.setString(i+1, // numbering starts at 1
+                           args.get(i));
+        }
+        return stmt;
     }
-    
-    public ResultSet run(Connection con) throws SQLException {
-	return getPreparedStatement(con).executeQuery();
+
+    public ResultSet run(Connection con) throws CompiledStatementError {
+        try {
+            return getPreparedStatement(con).executeQuery();
+        } catch (SQLException e) {
+            throw new CompiledStatementError();
+        }
     }
-    
 }

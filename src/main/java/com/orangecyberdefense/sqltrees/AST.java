@@ -3,7 +3,6 @@ package com.orangecyberdefense.sqltrees;
 import java.util.Arrays;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class AST {
     protected String lp = "(";
@@ -56,7 +55,7 @@ public class AST {
 	return b;
     }
     
-    public ResultSet execute(Connection con) throws SQLException {
+    public ResultSet execute(Connection con) throws CompiledStatementError {
 	return compile().run(con);
     }
 
